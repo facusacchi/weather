@@ -11,11 +11,11 @@ import com.weather.repository.WeatherRepository;
 @Service
 public class WeatherService {
 	
-	private HttpService httpService;
+	private HttpWeatherService httpService;
 	private WeatherRepository weatherRepository;
 	
 	@Autowired
-	public WeatherService(HttpService httpService, WeatherRepository weatherRepository) {
+	public WeatherService(HttpWeatherService httpService, WeatherRepository weatherRepository) {
 		this.httpService = httpService;
 		this.weatherRepository = weatherRepository;
 	}

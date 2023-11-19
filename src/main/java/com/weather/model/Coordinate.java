@@ -6,5 +6,12 @@ import lombok.Data;
 public class Coordinate {
 	private String latitude;
 	private String length;
-	private String lenguague;
+	
+	@Override
+	public String toString() {
+		return new StringBuilder(latitude)
+				.append(",")
+				.append(length)
+				.toString();
+	}
 }

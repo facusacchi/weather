@@ -5,20 +5,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.weather.model.Coordinate;
+import com.weather.model.builder.UrlBuilder;
+import com.weather.model.url.Param;
+import com.weather.model.url.Url;
 
 @Service
-public class HttpService {
+public class HttpWeatherService {
+	
+	private static String HTTP_ENV_KEY = "http-weather-client.";
 	
 	private Environment environment;
 	
 	@Autowired
-	public HttpService(Environment environment) {
+	public HttpWeatherService(Environment environment) {
 		this.environment = environment;
 	}
 	
@@ -26,6 +32,7 @@ public class HttpService {
 		
 		StringBuilder response = new StringBuilder();
 		String url = this.getUrl(coordinate);
+//		String url = "http://dataservice.accuweather.com/forecasts/v1/minute?apikey=7DsYp2QbxcwAvItRPmbQfqvKWPaifMm0&language=es-ar&q=-34.61315,-58.37723";
 		
 		URL urlRequest = new URL(url);
 
@@ -52,10 +59,14 @@ public class HttpService {
 	}
 	
 	private String getUrl(Coordinate coordinate) {
-		return new StringBuilder("http://dataservice.accuweather.com/forecasts/v1/minute")
-					.append("?apikey=7DsYp2QbxcwAvItRPmbQfqvKWPaifMm0")
-					.append("&language=es-ar")
-					.append("&q=-34.61315,-58.37723")
-					.toString();
+		UrlBuilder urlBuilder = new UrlBuilder()
+				.withDomain(environment.getProperty(HTTP_ENV_KEY + "domain"))
+				.withPath(environment.getProperty(HTTP_ENV_KEY + "path"));
+		
+		Arrays.asList(new Param("apikey", environment.getProperty(HTTP_ENV_KEY + "api-key")),
+				new Param("language", environment.getProperty(HTTP_ENV_KEY + "lenguague")),
+				new Param("q", coordinate.toString())).forEach(param -> urlBuilder.withParam(param));
+		
+		return urlBuilder.build();
 	}
 }
