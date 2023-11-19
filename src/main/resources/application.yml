@@ -15,3 +15,7 @@ http-weather-client:
     path: /forecasts/v1/minute
     api-key: 7DsYp2QbxcwAvItRPmbQfqvKWPaifMm0
     lenguague: es-ar
+
+exception-message:
+    coorinate: Error en el envío de coordenadas. Verificar Latitud y longitud.
+    http-client: Error al consumir api de terceros.
