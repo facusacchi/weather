@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.weather.exception.BusinessException;
 import com.weather.exception.CoordinateException;
 import com.weather.exception.ResourceNotFoundException;
 import com.weather.model.Coordinate;
@@ -68,6 +69,12 @@ public class WeatherService {
 	}
 
 	public List<Weather> getLastForecasts(int limit) {
+		
+		if(limit > 100) {
+			String erroMessage = environment.getProperty("exception-message.limit-resources");
+    		throw new BusinessException(erroMessage);
+    	}
+		
 		return weatherRepository.findTopNByOrderByDateTimeDesc(limit);
 	}
 }
