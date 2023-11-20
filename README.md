@@ -1,5 +1,5 @@
-Facundo Sacchi
-faq.ndo.n.s@gmail.com
+- Facundo Sacchi
+- faq.ndo.n.s@gmail.com
 
 # Configuracion del proyecto con Eclipse
 
