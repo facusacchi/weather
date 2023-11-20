@@ -1,4 +1,4 @@
-package com.weather.exception.exceptions;
+package com.weather.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

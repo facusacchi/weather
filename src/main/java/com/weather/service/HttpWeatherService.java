@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.weather.exception.exceptions.HttpClientException;
+import com.weather.exception.HttpClientException;
 import com.weather.model.Coordinate;
 import com.weather.model.builder.UrlBuilder;
 import com.weather.model.url.Param;

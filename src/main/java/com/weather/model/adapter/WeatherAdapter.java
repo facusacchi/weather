@@ -21,8 +21,6 @@ public class WeatherAdapter {
 		return Weather.builder()
 				.description(Summary.getPhrase())
 				.timeSlots(this.getTimeSlots())
-				.link(Link)
-				.mobileLink(MobileLink)
 				.dateTime(LocalDateTime.now())
 				.build();
 	}

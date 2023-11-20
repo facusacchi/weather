@@ -13,13 +13,17 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Weather {
 	
 	private static final String LOCAL_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -31,8 +35,6 @@ public class Weather {
 	@Default
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TimeInterval> timeSlots = new ArrayList<>();
-	private String link;
-	private String mobileLink;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LOCAL_DATE_TIME_PATTERN)
 	private LocalDateTime dateTime;
 }

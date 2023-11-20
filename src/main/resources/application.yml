@@ -19,3 +19,4 @@ http-weather-client:
 exception-message:
     coorinate: Error en el envío de coordenadas. Verificar Latitud y longitud.
     http-client: Error al consumir api de terceros.
+    not-found: El recurso solicitado no se ha encontrado.
