@@ -1,5 +1,6 @@
 package com.weather.unitTests.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.env.Environment;
 
+import com.weather.exception.BusinessException;
 import com.weather.exception.CoordinateException;
 import com.weather.exception.ResourceNotFoundException;
 import com.weather.model.Coordinate;
@@ -28,6 +30,7 @@ class WeatherServiceTest {
 	
 	private static final String ERROR_MESSAGE_COORDINATE =  "Error en el envío de coordenadas. Verificar Latitud y longitud.";
 	private static final String ERROR_MESSAGE_NOT_FOUND = "Error al consumir api de terceros.";
+	private static final String ERROR_MAX_RESOURCES = "Se ha excedido la cantidad de recursos solicitados.";
 	
 	private static HttpWeatherService httpService;
 	private static WeatherRepository weatherRepository;
@@ -50,6 +53,7 @@ class WeatherServiceTest {
 		
 		when(environment.getProperty("exception-message.coordinate")).thenReturn(ERROR_MESSAGE_COORDINATE);
 		when(environment.getProperty("exception-message.not-found")).thenReturn(ERROR_MESSAGE_NOT_FOUND);
+		when(environment.getProperty("exception-message.limit-resources")).thenReturn(ERROR_MAX_RESOURCES);
 	}
 	
 	@Test
@@ -145,5 +149,20 @@ class WeatherServiceTest {
 		
 		ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class, () -> service.findById(1234L));
 		assertEquals(ERROR_MESSAGE_NOT_FOUND, ex.getMessage());
+	}
+	
+	@Test
+	@DisplayName("Cuando se busca una cantidad de pronosticos mayor ha 100 obtengo un error")
+	void getLastForecastsErrorTest() {
+		
+		BusinessException ex = assertThrows(BusinessException.class, () -> service.getLastForecasts(101));
+		assertEquals(ERROR_MAX_RESOURCES, ex.getMessage());
+	}
+	
+	@Test
+	@DisplayName("Cuando se busca una cantidad de pronosticos menor ha 100 el sistema no arroja ningun error")
+	void getLastForecastsTest() {
+		
+		assertDoesNotThrow(() -> service.getLastForecasts(99));
 	}
 }
