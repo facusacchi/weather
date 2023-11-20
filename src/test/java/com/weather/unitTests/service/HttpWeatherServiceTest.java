@@ -28,11 +28,7 @@ import com.weather.service.HttpWeatherService;
 
 class HttpWeatherServiceTest {
 	
-	private static String HTTP_RESPONSE = "{\r\n"
-			+ "        \"Phrase\": \"Lluvia que finalizará en 13 min\",\r\n"
-			+ "        \"Type\": \"RAIN\",\r\n"
-			+ "        \"TypeId\": 1\r\n"
-			+ "    }";
+	private static String HTTP_RESPONSE = "HTTP_RESPONSE";
 
 	private static Environment environment;
 	private static HttpWeatherService service;
