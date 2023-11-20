@@ -27,21 +27,21 @@ public class HttpWeatherService {
 	
 	public String getWeather(Coordinate coordinate) {
 		String response = null;
+		Connection connection = null;
 		String url = this.getUrl(coordinate);
+		
 		try {
-			Connection connection = ConnectionFactory.instance(url, "GET");
+			connection = ConnectionFactory.instance(url, "GET");
 			connection.addHeader("Content-Type", "application/json");
-			
 			connection.execute();
 			
-			if(connection.isSuccess()) {
-				response = connection.getResponse();
-			}
+			response = connection.getResponse();
 			
 		} catch(IOException ex) {
-			String erroMessage = environment.getProperty("exception-message.http-client");
-			throw new HttpClientException(erroMessage);
+			doError();
 		}
+		
+		validateConnection(connection);
 		
 		return response;
 	}
@@ -57,5 +57,16 @@ public class HttpWeatherService {
 				).forEach(param -> urlBuilder.withParam(param));
 		
 		return urlBuilder.build();
+	}
+	
+	private void validateConnection(Connection connection) {
+		if(!connection.isSuccess()) {
+			doError();
+		}
+	}
+	
+	private void doError() {
+		String erroMessage = environment.getProperty("exception-message.http-client");
+		throw new HttpClientException(erroMessage);
 	}
 }
