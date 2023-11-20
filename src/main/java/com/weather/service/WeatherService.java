@@ -14,6 +14,9 @@ import com.weather.model.Weather;
 import com.weather.model.adapter.WeatherSerializer;
 import com.weather.repository.WeatherRepository;
 
+import lombok.Builder;
+
+@Builder
 @Service
 public class WeatherService {
 	
@@ -44,7 +47,7 @@ public class WeatherService {
 	
 	private void validateCoordinate(Coordinate coordinate) {
 		if(!coordinate.isValid()) {
-			String erroMessage = environment.getProperty("exception-message.coorinate");
+			String erroMessage = environment.getProperty("exception-message.coordinate");
 			throw new CoordinateException(erroMessage);
 		}
 	}

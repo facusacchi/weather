@@ -2,9 +2,11 @@ package com.weather.model;
 
 import java.util.Arrays;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class Coordinate {
 	
 	private String latitude;
