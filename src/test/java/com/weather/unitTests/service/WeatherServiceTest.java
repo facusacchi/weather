@@ -26,6 +26,7 @@ import com.weather.repository.WeatherRepository;
 import com.weather.service.HttpWeatherService;
 import com.weather.service.WeatherService;
 
+@DisplayName("WeatherServiceTest")
 class WeatherServiceTest {
 	
 	private static final String ERROR_MESSAGE_COORDINATE =  "Error en el envío de coordenadas. Verificar Latitud y longitud.";

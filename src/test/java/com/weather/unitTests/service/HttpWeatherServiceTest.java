@@ -26,6 +26,7 @@ import com.weather.model.connection.Connection;
 import com.weather.model.factory.ConnectionFactory;
 import com.weather.service.HttpWeatherService;
 
+@DisplayName("HttpWeatherServiceTest")
 class HttpWeatherServiceTest {
 	
 	private static String HTTP_RESPONSE = "HTTP_RESPONSE";
@@ -62,7 +63,7 @@ class HttpWeatherServiceTest {
 	}
 	
 	@Test
-	@DisplayName("test")
+	@DisplayName("Cuando consumo el servicio http para obtener el pronóstico del clima, obtengo la respuesta esperada")
 	void getWeatherTest() throws IOException {
 		try(MockedStatic<ConnectionFactory> connectionFactory = mockStatic(ConnectionFactory.class)) {
 			
@@ -76,7 +77,7 @@ class HttpWeatherServiceTest {
 	}
 	
 	@Test
-	@DisplayName("test2")
+	@DisplayName("Cuando consumo el servicio http, si la respuesta no es exitosa obtengo un error")
 	void getWeatherErrorTest() throws IOException {
 		try(MockedStatic<ConnectionFactory> connectionFactory = mockStatic(ConnectionFactory.class)) {
 			
